@@ -42,12 +42,13 @@ def test_param_validation(kwargs):
 
 def test_mixed_cluster_scores_lower():
     rng = np.random.default_rng(0)
-    n_cells = 60
-    n_genes = 12
+    n_cells = 100
+    n_genes = 50
     x = rng.poisson(1.0, size=(n_cells, n_genes))
-    x[:30, 0:3] += rng.poisson(4.0, size=(30, 3))
-    x[30:, 3:6] += rng.poisson(4.0, size=(30, 3))
+    # Create strong differential signal between two halves
+    x[:50, 0:10] += rng.poisson(8.0, size=(50, 10))
+    x[50:, 10:20] += rng.poisson(8.0, size=(50, 10))
 
-    pure_score = sn.score_matrix(x[:30, :], axis="cells_by_genes")
+    pure_score = sn.score_matrix(x[:50, :], axis="cells_by_genes")
     mixed_score = sn.score_matrix(x, axis="cells_by_genes")
     assert mixed_score < pure_score

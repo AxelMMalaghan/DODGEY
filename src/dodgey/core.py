@@ -71,7 +71,8 @@ def _validate_non_negative(x: MatrixLike) -> None:
         if x.data.size and np.min(x.data) < 0:
             raise ValueError("Input contains negative values")
     else:
-        if np.min(x) < 0:
+        arr = np.asarray(x)
+        if arr.size and np.min(arr) < 0:
             raise ValueError("Input contains negative values")
 
 
