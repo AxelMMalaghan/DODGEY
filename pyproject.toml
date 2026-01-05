@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dodgey"
+dynamic = ["version"]
+description = "ROGUE-inspired cluster purity scoring for count matrices"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+  { name = "Dodgey contributors" }
+]
+keywords = ["bioinformatics", "single-cell", "clustering", "quality-control", "rogue"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "statsmodels>=0.14",
+]
+
+[project.optional-dependencies]
+scanpy = [
+  "anndata>=0.10",
+  "pandas>=2.0",
+]
+dev = [
+  "pytest>=7.4",
+  "ruff>=0.4",
+  "mypy>=1.7",
+]
+
+[project.urls]
+Homepage = "https://github.com/AxelMMalaghan/DODGEY"
+Source = "https://github.com/AxelMMalaghan/DODGEY"
+Issues = "https://github.com/AxelMMalaghan/DODGEY/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dodgey"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "W"]
+
+[tool.hatch.version]
+source = "vcs"
+fallback-version = "0.1.0.dev0"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/dodgey/_version.py"
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+ignore_missing_imports = true
