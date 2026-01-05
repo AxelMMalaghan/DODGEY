@@ -1,8 +1,8 @@
-# sneaky
+# dodgey
 
 ROGUE-inspired cluster purity scoring for count matrices.
 
-`sneaky` provides a lightweight, NumPy-like API for computing a heterogeneity
+`dodgey` provides a lightweight, NumPy-like API for computing a heterogeneity
 score inspired by the ROGUE method used in scRNA-seq cluster QC. This is **not**
 a verbatim port of ROGUE; it is a deterministic, documented implementation that
 captures the core idea while keeping dependencies minimal.
@@ -10,13 +10,13 @@ captures the core idea while keeping dependencies minimal.
 ## Installation
 
 ```bash
-pip install sneaky
+pip install dodgey
 ```
 
 Optional integrations:
 
 ```bash
-pip install sneaky[scanpy]
+pip install dodgey[scanpy]
 ```
 
 ## Quickstart
@@ -25,10 +25,10 @@ pip install sneaky[scanpy]
 
 ```python
 import numpy as np
-import sneaky as sn
+import dodgey as dg
 
 X = np.random.poisson(1.0, size=(200, 300))  # cells x genes
-score = sn.score_matrix(X, k=45.0, axis="cells_by_genes")
+score = dg.score_matrix(X, k=45.0, axis="cells_by_genes")
 print(score)
 ```
 
@@ -36,26 +36,26 @@ print(score)
 
 ```python
 import numpy as np
-import sneaky as sn
+import dodgey as dg
 
 X = np.random.poisson(1.0, size=(200, 300))
 labels = np.repeat(["A", "B"], 100)
-result = sn.score_labels(X, labels)
+result = dg.score_labels(X, labels)
 print(result)
 ```
 
 ### Score an AnnData object (optional)
 
 ```python
-import sneaky as sn
+import dodgey as dg
 
-scores = sn.score_adata(adata, cluster_key="leiden", layer="counts")
+scores = dg.score_adata(adata, cluster_key="leiden", layer="counts")
 print(scores.head())
 ```
 
 ## What the metric means
 
-Given a count matrix, `sneaky` computes per-gene summary statistics over cells,
+Given a count matrix, `dodgey` computes per-gene summary statistics over cells,
 fits a smooth expected relationship between those statistics, and measures how
 much each gene deviates from expectation. Genes with significant deviations
 contribute to a `sig_value`, and the final score is:
@@ -158,9 +158,9 @@ reimplementation of the original method.
 
 ## Citations
 
-If you use `sneaky` in your research, please consider citing:
+If you use `dodgey` in your research, please consider citing:
 
-> McKenna, A. (2025). sneaky: ROGUE-inspired cluster purity scoring for count matrices. GitHub. https://github.com/AxelMMalaghan/SNEAKY
+> McKenna, A. (2025). dodgey: ROGUE-inspired cluster purity scoring for count matrices. GitHub. https://github.com/AxelMMalaghan/DODGEY
 
 ## License
 
